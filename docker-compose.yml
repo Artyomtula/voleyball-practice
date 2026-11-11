@@ -1,0 +1,42 @@
+services:
+  redis:
+    image: redis:8.8-alpine
+
+  api:
+    build: ./backend
+    image: volleyball-backend
+    # Перед запуском API база приводится к последней миграции
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - app-data:/data
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  worker:
+    build: ./backend
+    image: volleyball-backend
+    command: celery -A app.tasks worker --loglevel=info --concurrency=1
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - app-data:/data
+    depends_on:
+      - redis
+      - api
+
+  frontend:
+    build: ./frontend
+    environment:
+      API_URL: http://api:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
+# Общий том: база SQLite, загруженные видео и JSON с детекциями видны и API, и воркеру
+volumes:
+  app-data:

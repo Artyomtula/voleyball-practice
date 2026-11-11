@@ -1,0 +1,19 @@
+{
+  "video": "gtu_20250316_002",
+  "params": {
+    "min_speed": 0.1,
+    "max_gap": 1.0,
+    "min_duration": 2.0,
+    "merge_gap": 2.0
+  },
+  "rallies": [
+    {
+      "number": 1,
+      "start": 0.03,
+      "end": 32.6,
+      "start_frame": 1,
+      "end_frame": 977,
+      "serve_side": "unknown"
+    }
+  ]
+}

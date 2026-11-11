@@ -1,0 +1,18 @@
+# Веб-приложение и база данных
+fastapi==0.162.2
+uvicorn==0.54.0
+python-multipart==0.0.33
+sqlalchemy==2.1.8
+alembic==1.20.1
+
+# Очередь задач
+celery[redis]==5.7.0
+
+# Обработка видео и нейросети
+opencv-python==5.0.0.93
+numpy==2.5.4
+onnxruntime==1.31.1
+ultralytics==8.4.208
+torch==2.15.0
+torchvision==0.29.2
+
